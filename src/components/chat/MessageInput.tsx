@@ -110,18 +110,18 @@ const MessageInput: React.FC<MessageInputProps> = ({
   const characterCount = message.length;
 
   return (
-    <Box sx={{ position: "relative", p: 2 }}>
+    <Box sx={{ position: "relative", p: { xs: 1, sm: 2 }, width: "100%", maxWidth: "100%" }}>
       {/* Main Input Container */}
       <Box
         sx={{
           display: "flex",
           alignItems: "center",
-          gap: 1.5,
+          gap: { xs: 1, sm: 1.5 },
           backgroundColor: "background.paper",
-          borderRadius: "25px",
-          px: 2,
-          py: 1.5,
-          maxWidth: "800px",
+          borderRadius: { xs: "20px", sm: "25px" },
+          px: { xs: 1.5, sm: 2 },
+          py: { xs: 1, sm: 1.5 },
+          maxWidth: { xs: "100%", sm: "800px" },
           mx: "auto",
           boxShadow: "0 2px 12px rgba(0, 0, 0, 0.08)",
           backdropFilter: "blur(8px)",
@@ -131,10 +131,13 @@ const MessageInput: React.FC<MessageInputProps> = ({
           "&:hover": {
             boxShadow: "0 4px 16px rgba(0, 0, 0, 0.12)",
           },
+          // Prevent horizontal overflow
+          overflow: "hidden",
+          width: "100%",
         }}
       >
         {/* Text Input */}
-        <Box sx={{ flex: 1, minWidth: 0, width: "100%" }}>
+        <Box sx={{ flex: 1, minWidth: 0, width: "100%", overflow: "hidden" }}>
           <Textarea
             ref={textareaRef}
             value={message}
@@ -144,18 +147,22 @@ const MessageInput: React.FC<MessageInputProps> = ({
             disabled={disabled}
             autoResize
             minRows={1}
-            maxRows={6}
+            maxRows={4}
             variant="standard"
             sx={{
               width: "100%",
+              maxWidth: "100%",
               "& .MuiInput-underline:before": { display: "none" },
               "& .MuiInput-underline:after": { display: "none" },
               "& .MuiInputBase-input": {
                 textAlign: "left",
-                fontSize: "0.95rem",
+                fontSize: { xs: "0.875rem", sm: "0.95rem" },
                 lineHeight: 1.4,
                 padding: "2px 0",
                 width: "100%",
+                wordWrap: "break-word",
+                overflowWrap: "break-word",
+                hyphens: "auto",
               },
             }}
             aria-label="رسالة جديدة"
@@ -169,11 +176,14 @@ const MessageInput: React.FC<MessageInputProps> = ({
           sx={{
             backgroundColor: isMessageValid ? "#4a7c25" : "action.disabled",
             color: "white",
-            width: 32,
-            height: 32,
+            width: { xs: 36, sm: 32 },
+            height: { xs: 36, sm: 32 },
+            minWidth: { xs: 36, sm: 32 },
+            minHeight: { xs: 36, sm: 32 },
             transition: "all 0.2s ease",
             transform: isMessageValid ? "scale(-1)" : "scale(-0.9)",
             opacity: isMessageValid ? 1 : 0.4,
+            flexShrink: 0,
             "&:hover": {
               backgroundColor: isMessageValid ? "#2d5016" : "action.disabled",
               transform: isMessageValid ? "scale(-1.05)" : "scale(-0.9)",
